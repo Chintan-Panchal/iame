@@ -1,0 +1,21 @@
+<div *ngIf="message" backdrop="true" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content  alert-content">
+      <div *ngIf="message?.type == 'confirm'">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="text-center h3-color">{{message.text}}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p class="text-center">
+                <button type="button" class="btn btn-pm btn-danger" (click)="message.noFn()">No</button>
+                <button type="button" class="btn btn-sc btn-hero-success" (click)="message.siFn()" >Yes</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

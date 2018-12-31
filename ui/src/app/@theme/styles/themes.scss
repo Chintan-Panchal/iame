@@ -1,0 +1,37 @@
+// @nebular theming framework
+@import '~@nebular/theme/styles/theming';
+// @nebular out of the box themes
+@import '~@nebular/theme/styles/themes';
+
+// which themes you what to enable (empty to enable all)
+$nb-enabled-themes: (default, cosmic);
+
+$nb-themes: nb-register-theme((
+  // app wise variables for each theme
+  sidebar-header-gap: 2rem,
+  sidebar-header-height: initial,
+  layout-content-width: 1400px,
+
+  color-success: #02b6b6,
+  link-color: #e10d83,
+  color-fg-highlight: #02b6b6,
+  menu-icon-font-size: 1.5rem,
+
+  font-main: Roboto,
+  font-secondary: Exo,
+), cosmic, cosmic);
+
+$nb-themes: nb-register-theme((
+  // app wise variables for each theme
+  sidebar-header-gap: 2rem,
+  sidebar-header-height: initial,
+  layout-content-width: 1400px,
+
+  color-success: #02b6b6,
+  link-color: #e10d83,
+  color-fg-highlight: #02b6b6,
+  menu-icon-font-size: 1.5rem,
+
+  font-main: Roboto,
+  font-secondary: Exo,
+), default, default);

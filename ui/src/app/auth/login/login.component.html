@@ -1,0 +1,52 @@
+<div class="flex-centered col-xl-4 col-lg-3 col-md-6 col-sm-8">
+    <h2 class="title">Sign In</h2>
+    <form [formGroup]="loginForm">
+
+        <div *ngIf="errors && errors.length > 0 && !submitted" class="alert alert-danger" role="alert">
+            <div>
+                <strong>Login failed</strong>
+            </div>
+            <div *ngFor="let error of errors">{{ error }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-email" class="sr-only">Username (Email)</label>
+            <input id="input-email" formControlName="email" class="form-control" placeholder="Email address" pattern=".+@.+..+">
+            <small class="text-danger" *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('required')">email is required</small>
+            <small class="text-danger" *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('email')">email is invalid</small>
+        </div>
+
+        <div class="form-group">
+            <label for="input-password" class="sr-only">Password</label>
+            <input formControlName="password" type="password" id="input-password" class="form-control" placeholder="Password">
+            <small class="text-danger" *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('required')">password is required</small>
+        </div>
+
+        <div *ngIf="isTwoFaEnabled" class="form-group">
+            <label for="input-totp" class="sr-only">TOTP</label>
+            <input formControlName="totp" type="totp" id="input-totp" class="form-control" placeholder="totp">
+            <small class="text-danger" *ngIf="loginForm.get('totp').touched && loginForm.get('totp').hasError('required')">TOTP is required</small>
+        </div>
+
+        <div *ngIf="isTwoFaEnabled" class="form-group col-md-12">
+
+            <div *ngIf="isTwoFaEnabled">
+                <label for="input-secret" class="sr-only">Secret</label>
+                <img src="{{qrUrl}}" alt="Scan with Google Authenticator app">
+            </div>
+            <h6 class="title">Scan this QR code with Google Authenticator app OR enter this code for now.</h6>
+            <div *ngIf="isTwoFaEnabled">
+                <h6 class="title">{{totp}}</h6>
+            </div>
+        </div>
+
+    </form>
+
+    <button *ngIf="!isTwoFaEnabled" (click)="requiresTwoFactor(loginForm.value)" [disabled]="!loginForm.valid" class="btn btn-block btn-hero-success" [class.btn-pulse]="submitted">
+      Login
+    </button>
+
+    <button *ngIf="isTwoFaEnabled" (click)="verifySecret(loginForm.value)" [disabled]="loginForm.value.secret === ''" class="btn btn-block btn-hero-success" [class.btn-pulse]="submitted">
+      Verify Secret
+    </button>
+</div>
